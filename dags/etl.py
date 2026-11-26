@@ -21,7 +21,7 @@ with DAG(
     @task 
     def create_table():
         ##Intialize postgres hook
-        postgres_hook=PostgresHook(postgres_conn_id="my_postgres_connection")
+        postgres_hook=PostgresHook(postgres_conn_id="azure_postgres")
         ##SQL Query to create the table
         create_table_query="""
         CREATE TABLE IF NOT EXISTS apod_data (
@@ -65,7 +65,7 @@ with DAG(
     
     @task
     def load_data(apod_data):
-        postgres_hook=PostgresHook(postgres_conn_id="my_postgres_connection")
+        postgres_hook=PostgresHook(postgres_conn_id="azure_postgres")
         insert_query="""
         INSERT INTO apod_data (title ,explanation ,url ,date ,media_type)
         VALUES (%s,%s,%s,%s,%s)
